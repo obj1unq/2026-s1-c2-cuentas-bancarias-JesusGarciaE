@@ -32,7 +32,7 @@ object casa {
     }
 
     method agregarAlMes(monto){
-        gastosMensuales = gastosMensuales + cuentaBancaria.setSaldo(monto)
+        gastosMensuales = gastosMensuales + cuentaBancaria.saldoEnCuenta(monto)
     }
 
     method depositar(monto){

@@ -5,5 +5,32 @@ describe "casa de pepe y julian" {
   // Descomentar si hiciera falta un metodo para inicializar el ambiente
   // method initialize() {
   // }
+  test "casa con cuenta corriente" {
+    casa.cuentaBancaria(cuentaCorriente)
+    casa.depositar(300)
+    casa.gastos(0)
+    casa.gastos(200)
+    assert.equals(100, cuentaCorriente.saldoEnCuenta)
+    assert.equals(200, casa.gastosMensuales)
+    casa.gastos(400)
+    assert.equals(-300, cuentaCorriente.saldoEnCuenta)
+    assert.equals(600, casa.gastosMensuales)
 
+  }
+  test "casa con cuenta de gastos" {
+    casa.cuentaBancaria(cuentaConGastos)
+    casa.depositar(1000)
+    assert.equals(980, cuentaConGastos.saldoDeGastos)
+    cuentaConGastos.extraer(580)
+    assert.equals(400, cuentaConGastos.saldoDeGastos)
+    cuentaConGastos.extraer(500)
+    assert.equals(-100, cuentaConGastos.saldoDeGastos)
+    cuentaConGastos.depositar(150)
+    assert.equals(30, cuentaConGastos.saldoDeGastos)
+  }
+  test"test cuenta vacia"{
+    casa.cuentaBancaria(cuentaConGastos)
+    assert.throwsException({casa.depositar(10)}) 
+    assert.equals(0, cuentaConGastos.saldoDeGastos)
+  }
 }
