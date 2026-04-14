@@ -62,14 +62,14 @@ object cuentaCorriente {
 }
 
 object cuentaConGastos {
-    var saldoDeGastos = 0
+    var saldoEnCuenta = 0
     const costoDeOperacion = 20
     method depositar(monto){
             self.validarDeposito(monto)
-            saldoDeGastos = saldoDeGastos + monto - costoDeOperacion
+            saldoEnCuenta = saldoEnCuenta + monto - costoDeOperacion
     }
     method extraer (monto) {
-        saldoDeGastos = saldoDeGastos - monto - costoDeOperacion 
+        saldoEnCuenta = saldoEnCuenta - monto - costoDeOperacion 
     }
     method validarDeposito (monto) {
         if (not (monto <= costoDeOperacion)) {
@@ -77,4 +77,30 @@ object cuentaConGastos {
         }
     }
 
+}
+
+object cuentaCombinada {
+    var cuentaPrimaria = cuentaCorriente
+    var cuentaSecundaria = cuentaConGastos
+    method depositar(monto){
+        cuentaPrimaria.depositar(monto)
+    }
+    method extraer(monto){
+        if (cuentaPrimaria.saldoEnCuenta(monto) >= monto) {
+            cuentaPrimaria.extraer(monto)
+        } 
+        else if (cuentaSecundaria.saldoEnCuenta(monto) >= monto) {
+            cuentaSecundaria.extraer(monto)
+        }
+        else {
+            self.error("saldo insuficiente")
+        }
+    }
+
+    method cuentaPrimaria(_cuentaPrimaria){
+        cuentaPrimaria = _cuentaPrimaria
+    }
+    method cuentaSecundaria(_cuentaSecundaria){
+        cuentaSecundaria = _cuentaSecundaria
+    }
 }

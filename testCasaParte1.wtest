@@ -20,17 +20,17 @@ describe "casa de pepe y julian" {
   test "casa con cuenta de gastos" {
     casa.cuentaBancaria(cuentaConGastos)
     casa.depositar(1000)
-    assert.equals(980, cuentaConGastos.saldoDeGastos)
+    assert.equals(980, cuentaConGastos.saldoEnCuenta)
     cuentaConGastos.extraer(580)
-    assert.equals(400, cuentaConGastos.saldoDeGastos)
+    assert.equals(400, cuentaConGastos.saldoEnCuenta)
     cuentaConGastos.extraer(500)
-    assert.equals(-100, cuentaConGastos.saldoDeGastos)
+    assert.equals(-100, cuentaConGastos.saldoEnCuenta)
     cuentaConGastos.depositar(150)
-    assert.equals(30, cuentaConGastos.saldoDeGastos)
+    assert.equals(30, cuentaConGastos.saldoEnCuenta)
   }
   test"test cuenta vacia"{
     casa.cuentaBancaria(cuentaConGastos)
     assert.throwsException({casa.depositar(10)}) 
-    assert.equals(0, cuentaConGastos.saldoDeGastos)
+    assert.equals(0, cuentaConGastos.saldoEnCuenta)
   }
 }
